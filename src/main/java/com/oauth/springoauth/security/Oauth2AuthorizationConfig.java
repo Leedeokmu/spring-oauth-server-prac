@@ -36,10 +36,10 @@ public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
         ;
     }
 
-    @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.tokenStore(new JdbcTokenStore(dataSource)).userDetailsService(userDetailsService);
-    }
+//    @Override
+//    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+//        endpoints.tokenStore(new JdbcTokenStore(dataSource)).userDetailsService(userDetailsService);
+//    }
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
@@ -49,15 +49,15 @@ public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
         ;
     }
 
-    //    @Override
-//    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-//        super.configure(endpoints);
-//        endpoints.accessTokenConverter(jwtAccessTokenConverter()).userDetailsService(userDetailsService);
-//    }
-//    @Bean
-//    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-//        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-//        converter.setSigningKey(signKey);
-//        return converter;
-//    }
+        @Override
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        super.configure(endpoints);
+        endpoints.accessTokenConverter(jwtAccessTokenConverter()).userDetailsService(userDetailsService);
+    }
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setSigningKey(signKey);
+        return converter;
+    }
 }
